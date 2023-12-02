@@ -1,54 +1,41 @@
-/*
-쿼리설렉터; css선택과 동일하게 작동.
-#hello -> id가 hello인 요소 선택
-.hello -> class가 hello인 요소 선택
-*/
-const h1 = document.querySelector(".hello h1")
+const loginForm = document.querySelector("#login-form");
+const loginInput = document.querySelector("#login-form input");
+const greeting = document.querySelector("#greeting");
 
-function handleTitleClick() {
-    /*
-    classList의 경우, 값을 추가/제거가 가능함
-    toggle의 경우, 인자 값이 있는지 없는지 여부와 그에 따른 추가/삭제를
-    자동으로 수행해줌.
-    */
-    h1.classList.toggle("active");
-    // const clickedClass = "active";
-    // if(h1.classList.contains(clickedClass)) {
-    //     h1.classList.remove(clickedClass);
-    // } else {
-    //     h1.classList.add(clickedClass)
-    // }
+const HIDDEN_CLASSNAME = "hidden";
+const USERNAME_KEY = "userName";
+
+function onLoginSubmit(event) {
+    // 페이지가 새로고침되는걸 방지함
+    event.preventDefault();
+    // input 창 숨기기
+    loginForm.classList.add(HIDDEN_CLASSNAME);
+    
+    const userName = loginInput.value;
+   
+    // localStorage에 userName 저장해주기
+    localStorage.setItem(USERNAME_KEY, userName);
+   
+    paintGreetings(userName);
+    
+    console.log(userName);
 }
 
-// function handleMouseEnter() {
-//     h1.innerText = "Mouse is Here!";
-// }
-
-// function handleMouseLeave() {
-//     h1.innerText = "Mouse is gone!";    
-// }
-
-// function handleWindowResize() {
-//     document.body.style.backgroundColor = "tomato";
-// }
-
-// function handleWindowCopy() {
-//     alert("copier!");
-// }
-
+function paintGreetings(userName) {
+    greeting.innerText = `Hello ${userName}`;
+    greeting.classList.remove(HIDDEN_CLASSNAME);
+}
 /*
-이벤트 리스너 추가
-h1.onclick = function();
-또는
-h1.addEventListener("click", function);
-으로 작성가능
-
-후자의 경우, removeEventListener 작업이 가능하므로 전자보단 후자를 추천
+* 이름이 저장되어 있는 상황이면 input창 대신 바로 h1 태그 보이게 하기
 */
-// // h1.onclick = handleTitleClick;
-h1.addEventListener("click", handleTitleClick);
-// h1.addEventListener("mouseenter", handleMouseEnter);
-// h1.addEventListener("mouseleave", handleMouseLeave);
+const savedUserName = localStorage.getItem(USERNAME_KEY);
 
-// window.addEventListener("resize", handleWindowResize);
-// window.addEventListener("copy", handleWindowCopy);
+// 유저 이름이 저장되어 있지 않다면
+if (savedUserName === null) {
+    loginForm.classList.remove(HIDDEN_CLASSNAME);
+    loginForm.addEventListener("submit", onLoginSubmit);
+} 
+// 유저이름이 저장되어 있다면
+else {
+    paintGreetings(savedUserName);
+}

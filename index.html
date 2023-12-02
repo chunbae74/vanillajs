@@ -7,9 +7,17 @@
     <title>VanillaJS</title>
 </head>
 <body>
-    <div class="hello">
-        <h1 class="hihihi">Grab me!</h1>
-    </div>
+    <!-- input에 여러 조건들을 걸어주고 싶다면 form 안에 속해있어야 함 -->
+    <form class="hidden" id = "login-form">
+        <input 
+            required
+            maxlength = "15"
+            type="text" 
+            placeholder="What is your name?" 
+        />
+        <input type="submit" value = "Log In"/>
+    </form>
+    <h1 id="greeting" class="hidden"></h1>
     <script src="app.js"></script>
 </body>
 </html>

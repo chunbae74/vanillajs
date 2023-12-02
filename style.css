@@ -1,13 +1,7 @@
-body {
-    background-color: beige;
+.hidden {
+    /*
+        visibility:hidden -> 공간은 그대로 두고 보이지만 않게
+        display:none -> 잡아둔 공간도 사라짐!
+    */
+    display: none;
 }
-
-h1 {
-    color : cornflowerblue;
-    transition: color .5s ease-in-out;
-}
-
-.active {
-    color : tomato;
-}
-
